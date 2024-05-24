@@ -1,0 +1,21 @@
+array = [...]
+hash_table = key : data
+int
+str
+
+array = [1,1,2]
+
+grafos, arboles, linked-list, tabla de hash
+
+
+class Car():
+    ...
+
+
+car, car, car, car
+
+
+Class Node:
+    self.next_node -> Node
+
+

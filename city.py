@@ -17,9 +17,9 @@ class CityMap():
         self.list_car: list[Car] = []
 
     def create_base_2(self):
-        i: int = 1
-        i2: int = 0
-        a: bool = True
+        i: int = 1  # que es esto? -> Index
+        i2: int = 0  # que es esto? -> Index2
+        a: bool = True  # que es esto? -> auto
         for _ in range(self.size_map):
             lista: list[int | Car] = []
             for _ in range(self.size_map):
@@ -34,6 +34,7 @@ class CityMap():
                     continue
                 lista.append(self.road)
             self._base.append(lista)
+
             i2 += 1
             i = 1
             if i2 == 2:
@@ -44,11 +45,13 @@ class CityMap():
     def init_car(self, y: int, x: int, car: Car):
 
         car.init_x = x
-        car.init_y = y
-        car.new_y = y
         car.new_x = x
         car.x = x
+
+        car.init_y = y
+        car.new_y = y
         car.y = y
+
         if (
             self._base[car.init_y][car.init_x] == 1 or
             self._base[car.init_y][car.init_x] == Car
@@ -58,7 +61,7 @@ class CityMap():
         self._base[car.init_y][car.init_x] = car
         car.init = True
 
-    def is_space_empty(self, x: int, y: int) -> bool:
+    def is_space_occupied(self, x: int, y: int) -> bool:
         return self._base[y][x] == 1 or isinstance(self._base[y][x], Car)
 
     def ver_x(self, car: Car) -> int:
@@ -71,12 +74,12 @@ class CityMap():
             contador: int = 0
             for _ in range(distancia):
                 contador += 1
-                if self.is_space_empty(old_x - contador, old_y):
+                if self.is_space_occupied(old_x - contador, old_y):
                     car.new_x = old_x - contador + 1
                     return old_x - contador + 1
 
         for e in range(old_x, new_x+1):
-            if self.is_space_empty(e + 1, old_y):
+            if self.is_space_occupied(e + 1, old_y):
                 car.new_x = e
                 return e
         return car.new_x
@@ -91,12 +94,12 @@ class CityMap():
             contador = 0
             for _ in range(distancia):
                 contador += 1
-                if self.is_space_empty(old_x, old_y - contador):
+                if self.is_space_occupied(old_x, old_y - contador):
                     car.new_y = old_y + contador - 1
                     return old_y - contador + 1
 
         for e in range(old_y, new_y+1):
-            if self.is_space_empty(old_x, e+1):
+            if self.is_space_occupied(old_x, e+1):
                 car.new_y = e
                 return e
         return car.new_y
@@ -123,3 +126,4 @@ class CityMap():
         for i in self._base:
             print(i)
         return ''
+

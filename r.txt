@@ -1,0 +1,82 @@
+We have two types of entities: a Car and a City. Multiple cars can exist within a single city, and these cars can interact with each other.
+
+Requirements:
+Movement and State Management:
+
+The movement of each car and the state update of the city are synchronized through a mechanism called a "jump."
+A "jump" represents a discrete time step in our system where only one action can be executed for each car.
+Action Execution:
+
+The position and state updates for the cars are calculated and executed only when the city's next_jump() method is called.
+Each car can queue up an action (e.g., move up, move right), but the action will only take effect during the city's jump.
+Restrictions:
+
+A car can only perform one action per jump. If multiple actions are queued for a single car before a jump, it should result in an error during the execution of the jump.
+Examples and Detailed Behavior:
+Queueing Actions:
+
+If a car queues an action to move up and then queues another action to move up again, when the city executes the next jump, it should result in an error because the car has more than one action queued for this jump.
+State Before and After Jump:
+
+If you print a car's position, queue an action to move right, and print the position again, the position will remain unchanged because the action has not been executed yet. After the city's next jump is executed, printing the position again will show the updated position, reflecting the car's movement.
+Design Pattern Recommendation:
+To manage the movement of the cars and the update of the city efficiently, we should use the Command Pattern. This pattern will help in encapsulating the actions (commands) that can be performed by the cars and ensures that these actions are executed in a controlled manner during each jump.
+
+Implementation Outline:
+Command Interface:
+Define a command interface with an execute method to encapsulate each action.
+Concrete Commands:
+Implement concrete command classes for each type of action (e.g., move up, move right).
+Invoker (City):
+The city will act as the invoker, which stores and executes the commands for each car during the next jump.
+This design ensures that:
+
+Each car can queue actions, but they are only executed during the next jump.
+It enforces the rule that only one action per car per jump is allowed.
+It provides a clear structure for adding new types of actions in the future.
+
+
+-------------------------
+
+Tenemos dos tipos de entidades: un Coche y una Ciudad. Varios coches pueden existir dentro de una sola ciudad, y estos coches pueden interactuar entre sí.
+
+Requisitos:
+Movimiento y Gestión del Estado:
+
+El movimiento de cada coche y la actualización del estado de la ciudad se sincronizan a través de un mecanismo llamado "salto".
+Un "salto" representa un paso de tiempo discreto en nuestro sistema donde solo se puede ejecutar una acción para cada coche.
+Ejecución de Acciones:
+
+La posición y las actualizaciones del estado de los coches se calculan y ejecutan solo cuando se llama al método next_jump() de la ciudad.
+Cada coche puede encolar una acción (por ejemplo, moverse hacia arriba, moverse a la derecha), pero la acción solo tendrá efecto durante el salto de la ciudad.
+Restricciones:
+
+Un coche solo puede realizar una acción por salto. Si se encolan varias acciones para un solo coche antes de un salto, debería resultar en un error durante la ejecución del salto.
+Ejemplos y Comportamiento Detallado:
+Encolado de Acciones:
+
+Si un coche encola una acción para moverse hacia arriba y luego encola otra acción para moverse hacia arriba nuevamente, cuando la ciudad ejecuta el siguiente salto, debería resultar en un error porque el coche tiene más de una acción encolada para este salto.
+Estado Antes y Después del Salto:
+
+Si imprimes la posición de un coche, encolas una acción para moverse a la derecha e imprimes la posición nuevamente, la posición permanecerá sin cambios porque la acción aún no se ha ejecutado. Después de que se ejecute el siguiente salto de la ciudad, imprimir la posición nuevamente mostrará la posición actualizada, reflejando el movimiento del coche.
+Recomendación de Patrón de Diseño:
+Para gestionar el movimiento de los coches y la actualización de la ciudad de manera eficiente, deberíamos usar el Patrón de Comando. Este patrón ayudará a encapsular las acciones (comandos) que pueden realizar los coches y garantiza que estas acciones se ejecuten de manera controlada durante cada salto.
+
+Esquema de Implementación:
+Interfaz de Comando:
+Definir una interfaz de comando con un método execute para encapsular cada acción.
+Comandos Concretos:
+Implementar clases de comandos concretos para cada tipo de acción (por ejemplo, moverse hacia arriba, moverse a la derecha).
+Invocador (Ciudad):
+La ciudad actuará como el invocador, que almacena y ejecuta los comandos para cada coche durante el próximo salto.
+Este diseño asegura que:
+
+Cada coche puede encolar acciones, pero solo se ejecutan durante el próximo salto.
+Se aplica la regla de que solo se permite una acción por coche por salto.
+Proporciona una estructura clara para agregar nuevos tipos de acciones en el futuro.
+
+
+https://claude.ai/chats
+
+
+
