@@ -60,10 +60,18 @@ def car_test():
     supra.create_engine()
     supra.create_doors()
     supra.start()
-    corsa.acelerar(10)
+    supra.acelerar(4)
+    supra.abajo()
+
+    corsa.acelerar(2)
+    corsa.derecha()
     corsa.arriba()
 
-    city.update_map()
+    city.jump()
+    corsa.arriba()
+    city.jump()
+
+    print(city.cars_mov)
     print(city)
 
 

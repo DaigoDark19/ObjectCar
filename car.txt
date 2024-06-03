@@ -1,0 +1,4 @@
+necesito que el carro no pueda moverse mas hasta
+que se realice un jump cuando se realice un jump se podra ejecutar un movimiento
+para esto cree una variable bool en los carros llama mov. cada que ejecuto el movimiento de un
+carro esta variable pasara de true a false lo cual hara que no pueda seguir ejecutandose.

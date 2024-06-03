@@ -154,12 +154,7 @@ cars_that_move = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Space O(n)
 
+la = [i for i in range(10**10)]  # O(n)
 
-l = [i for i in range(10**10)]  # O(n)
-
-LinkedList1 => 'cantidad de carros'
-LinkedList2 => 'cantidad de carrros que se movieron'
-
-
-
-
+# LinkedList1 => 'cantidad de carros'
+# LinkedList2 => 'cantidad de carrros que se movieron'

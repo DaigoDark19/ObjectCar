@@ -60,6 +60,7 @@ class Car():
         self.y: int = 0
         self.mov_x: bool = False
         self.mov_y: bool = False
+        self.mov: bool = False
 
         self.new_x: int = 0
         self.new_y: int = 0
@@ -235,13 +236,14 @@ class Car():
 
         if self.veri_gas() < 0:
             raise ValueError('EL GAS NO ES SUFICIENTE PARA REALIZAR EL MOV')
-
-        self.mov_x = True
-        self.mov_y = False
-        self.x = self.new_x
-        self.y = self.new_y
-        self.new_x = self.x + self.vel
-        self.gastar_gas()
+        if self.mov is False:
+            self.mov = True
+            self.mov_x = True
+            self.mov_y = False
+            self.x = self.new_x
+            self.y = self.new_y
+            self.new_x = self.x + self.vel
+            self.gastar_gas()
 
     def izquierda(self):
         if self.tanq_gaso < 0:
@@ -249,15 +251,16 @@ class Car():
 
         if self.veri_gas() <= 0:
             raise ValueError('EL GAS NO ES SUFICIENTE PARA REALIZAR EL MOV')
-
-        self.mov_x = True
-        self.mov_y = False
-        self.y = self.new_y
-        self.x = self.new_x
-        self.new_x = self.x - self.vel
-        if self.new_x < 0:
-            self.new_x = 0
-        self.gastar_gas()
+        if self.mov is False:
+            self.mov = True
+            self.mov_x = True
+            self.mov_y = False
+            self.y = self.new_y
+            self.x = self.new_x
+            self.new_x = self.x - self.vel
+            if self.new_x < 0:
+                self.new_x = 0
+            self.gastar_gas()
 
     def arriba(self):
         if self.tanq_gaso <= 0:
@@ -265,15 +268,16 @@ class Car():
 
         if self.veri_gas() < 0:
             raise ValueError('EL GAS NO ES SUFICIENTE PARA REALIZAR EL MOV')
-
-        self.mov_y = True
-        self.mov_x = False
-        self.y = self.new_y
-        self.x = self.new_x
-        self.new_y = self.y - self.vel
-        if self.new_y < 0:
-            self.new_y = 0
-        self.gastar_gas()
+        if self.mov is False:
+            self.mov_y = True
+            self.mov_x = False
+            self.y = self.new_y
+            self.x = self.new_x
+            self.new_y = self.y - self.vel
+            self.mov = True
+            if self.new_y < 0:
+                self.new_y = 0
+            self.gastar_gas()
 
     def abajo(self):
         if self.tanq_gaso <= 0:
@@ -281,13 +285,14 @@ class Car():
 
         if self.veri_gas() < 0:
             raise ValueError('EL GAS NO ES SUFICIENTE PARA REALIZAR EL MOV')
-
-        self.mov_y = True
-        self.mov_x = False
-        self.y = self.new_y
-        self.x = self.new_x
-        self.new_y = self.y + self.vel
-        self.gastar_gas()
+        if self.mov is False:
+            self.mov_y = True
+            self.mov_x = False
+            self.y = self.new_y
+            self.x = self.new_x
+            self.new_y = self.y + self.vel
+            self.gastar_gas()
+            self.mov = True
 
     def __str__(self) -> str:
         return f'{self.modelo}'

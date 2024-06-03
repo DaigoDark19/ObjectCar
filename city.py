@@ -7,6 +7,10 @@ from core.city_exception import (
     LimitMapError
 )
 
+from linked_node import (
+    LinkedList
+)
+
 
 class CityMap():
     def __init__(self) -> None:
@@ -14,7 +18,8 @@ class CityMap():
         self.edifcio: int = 1
         self._base: list[list[list]] = []
         self.size_map: int = 20
-        self.list_car: list[Car] = []
+        self.cars: LinkedList = LinkedList()
+        self.cars_mov: LinkedList = LinkedList()
 
     def create_base_2(self):
         i: int = 1  # que es esto? -> Index
@@ -57,7 +62,7 @@ class CityMap():
             self._base[car.init_y][car.init_x] == Car
                 ):
             raise InitCarError()
-        self.list_car.append(car)
+        self.cars.append(car)
         self._base[car.init_y][car.init_x] = car
         car.init = True
 
@@ -104,26 +109,38 @@ class CityMap():
                 return e
         return car.new_y
 
-    def update_map(self):
-        for car in self.list_car:
-            x: int = car.x
-            y: int = car.y
-            new_x: int = self.ver_x(car)
-            new_y: int = self.ver_y(car)
+    def check_mov(self):
+        current = self.cars.head
+        while current is not None:
+            if current.data.mov is True:
+                self.cars_mov.append(current.data)
+            current = current.next
+
+    def jump(self):
+        self.check_mov()
+        current = self.cars_mov.head
+        while current is not None:
+            current.data.mov = False
+            x: int = current.data.x
+            y: int = current.data.y
+            new_x: int = self.ver_x(current.data)
+            new_y: int = self.ver_y(current.data)
 
             if new_x >= self.size_map or new_y >= self.size_map:
                 raise LimitMapError()
 
-            if car.init and self._base[car.init_y][car.init_x] != Car:
-                self._base[car.init_y][car.init_x] = 0
-                car.init = False
+            if (current.data.init and self._base[current.data.init_y][current.data.init_x] != Car):
+                self._base[current.data.init_y][current.data.init_x] = 0
+                current.data.init = False
 
             self._base[y][x] = 0
-            self._base[new_y][new_x] = car
+            self._base[new_y][new_x] = current.data
+            current.data.mov = False
+            current = current.next
+        self.cars_mov.delete_all()
 
     def __str__(self) -> str:
 
         for i in self._base:
             print(i)
         return ''
-
